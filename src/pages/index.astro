@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Button } from "@/components/ui/button";
+import { auth } from '../lib/auth';
+
+const session = await auth.validateRequest(Astro.request);
+---
+
+<Layout title="Modern Astro App">
+  <main class="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+    <div class="container mx-auto px-4 py-16">
+      <h1 class="text-4xl font-bold mb-8">Welcome to Modern Astro</h1>
+      <p class="text-xl mb-8">A full-featured template with authentication, database, and more.</p>
+      
+      <div class="space-x-4">
+        {!session ? (
+          <Button client:load href="/login">Sign In</Button>
+        ) : (
+          <Button client:load href="/dashboard">Dashboard</Button>
+        )}
+      </div>
+    </div>
+  </main>
+</Layout>
